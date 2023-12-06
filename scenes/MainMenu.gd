@@ -15,7 +15,7 @@ func _ready():
 	scene_changer = SceneChanger.new()
 	
 	
-### EVENTS
+### BUTTON METHODS
 func _on_start_button_down():
 	call_change_scene(questions_game_scene_path)
 
