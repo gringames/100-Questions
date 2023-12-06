@@ -1,6 +1,6 @@
 extends Control
 
-@export var questions_scene: PackedScene
+const questions_scene_path: String = "res://scenes/questions.tscn"
 var background: ColorRect
 var scene_changer: SceneChanger
 
@@ -10,7 +10,7 @@ func _ready():
 	
 
 func _on_start_button_down():
-	scene_changer.change_scene(questions_scene)
+	scene_changer.change_scene(questions_scene_path, get_tree())
 
 
 func _on_add_button_down():
