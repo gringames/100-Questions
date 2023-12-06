@@ -2,7 +2,7 @@ extends Control
 
 ### SCENE PATHS
 const questions_game_scene_path: String = "res://scenes/questions.tscn"
-const add_questions_scene_path: String = "res://scenes/questions.tscn"
+const add_questions_scene_path: String = "res://scenes/AddQuestions.tscn"
 
 ### OTHER
 var background: ColorRect
