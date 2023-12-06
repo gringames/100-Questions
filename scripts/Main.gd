@@ -4,7 +4,6 @@ extends Control
 @export var end_text: String = "no more questions :("
 @export var end_color: Color = Color.BLACK
 
-
 @export_category("Questions")
 @export var questions: Array
 
@@ -54,7 +53,7 @@ func next_question() -> void:
 
 func next_text() -> void:
 	if question_index == number_of_questions:
-		stop_listening_for_input()
+		stop_listening_for_input() # needed to avoid any errors
 		display_end_screen()
 		return
 		
@@ -76,7 +75,7 @@ func next_background_color() -> void:
 
 
 func get_random_color_index() -> int:
-	# randi_range param "to" is inclusive
+	# randi_range's param "to" is inclusive
 	var random_index: int = randi_range(0, number_of_colors - 1)
 	
 	# ensure different color
