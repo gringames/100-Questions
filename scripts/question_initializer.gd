@@ -1,39 +1,47 @@
-@tool
-extends EditorScript
+class_name QuestionInitializer
 
-var question_txt_path: String = "res://data/initial_questions.txt"
-var questions_node_name: String = "QuestionsMain"
+var question_file: QuestionFile
+var initial_question_txt_path: String = "res://data/initial_questions.txt"
 var print_question_array: bool = true
 
-var questions: Array
-
-func get_questions() -> Array:
-	return questions
-
-
-func _run():
-	fill_array_from_file()
-	
-	if print_question_array:
-		print(questions)
-		
-	assign_questions_array_in_main()
+func _ready():
+	question_file = QuestionFile.new()
 		
 
-func fill_array_from_file() -> void:
-	# TODO: create user:// file on first start of game and write init_questions into that. Then use user...
+func fill_array_from_file() -> Array:
+	var array: Array
+	var user_path: String = question_file.question_file_path
 	
-	var questions_file = FileAccess.open(question_txt_path, FileAccess.READ)
+	if user_file_does_not_exist():
+		copy_initial_questions_to(user_path)
+	
+	return convert_to_array(user_path)
+		
+		
+func user_file_does_not_exist() -> bool:
+	var user_file_path: String = question_file.question_file_path
+	return not FileAccess.file_exists(user_file_path)
+
+
+func copy_initial_questions_to(user_file_path: String) -> void:
+	# creates user file
+	var dir = DirAccess.open("res://")
+	dir.copy(initial_question_txt_path, user_file_path)
+	var error = dir.get_open_error()
+	if error != OK:
+		print("An error occurred while copying the file: " + error)
+
+
+func convert_to_array(user_path: String) -> Array:
+	var array: Array
+
+	var questions_file = FileAccess.open(user_path, FileAccess.READ)
 	while not questions_file.eof_reached():
 		var line: String = questions_file.get_line()
-		
+	
 		if line.begins_with("#") or line.is_empty():
 			continue
+	
+		array.append(str(line))
 		
-		questions.append(str(line))
-
-
-func assign_questions_array_in_main() -> void:
-	# get scene returns the root node
-	var questions_node = get_scene()
-	questions_node.questions = questions
+	return array
