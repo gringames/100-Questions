@@ -8,15 +8,14 @@ const menu_scene_path: String = "res://scenes/MainMenu.tscn"
 var scene_changer: SceneChanger
 
 ### FILE
-const question_file_path: String = "res://data/questions.txt"
-var question_file: FileAccess
-
+var question_file: QuestionFile
 
 
 ### INIT
 func _ready():
 	textbox = $VBoxContainer/TextEdit
 	scene_changer = SceneChanger.new()
+	question_file = QuestionFile.new()
 
 
 ### BUTTON METHODS
@@ -39,17 +38,7 @@ func _on_submit_button_down():
 ### HELPERS
 
 func add_question_to_file(question: String) -> void:
-	question_file = FileAccess.open(question_file_path, FileAccess.WRITE)
-	
-	question_file.seek_end()
-	question_file.store_line(question)
-	
-	# does not work
-		
-	print("----------")
-	while not question_file.eof_reached():
-		print(question_file.get_line())
-	
+	question_file.append(question, true)
 
 
 func clear_text() -> void:

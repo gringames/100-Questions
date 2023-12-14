@@ -1,7 +1,7 @@
 @tool
 extends EditorScript
 
-var question_txt_path: String = "res://data/questions.txt"
+var question_txt_path: String = "res://data/initial_questions.txt"
 var questions_node_name: String = "QuestionsMain"
 var print_question_array: bool = true
 
@@ -21,6 +21,8 @@ func _run():
 		
 
 func fill_array_from_file() -> void:
+	# TODO: create user:// file on first start of game and write init_questions into that. Then use user...
+	
 	var questions_file = FileAccess.open(question_txt_path, FileAccess.READ)
 	while not questions_file.eof_reached():
 		var line: String = questions_file.get_line()
