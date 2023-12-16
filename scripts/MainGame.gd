@@ -1,11 +1,15 @@
 extends Control
 
 @export_category("End")
+@export var scene_to_go_to: String = "res://scenes/MainMenu.tscn"
+@export var time_to_wait_until_returning_to_main_menu: float = 2
 @export var end_text: String = "no more questions :("
 @export var end_color: Color = Color.BLACK
 
+
 @export_category("Questions")
 @export var questions: Array
+
 
 @export_category("Colors")
 @export var colors: Array = [
@@ -32,6 +36,9 @@ var question_index: int = 0
 ### QUESTIONS
 var question_file_handler: QuestionFileHandler
 
+### END
+var scene_changer: SceneChanger
+
 
 
 ### SETUP
@@ -39,6 +46,7 @@ func _ready():
 	question_label = $QuestionBox/QuestionLabel
 	background_color = $BackgroundColor
 	number_of_colors = colors.size()
+	scene_changer = SceneChanger.new()
 	question_file_handler = QuestionFileHandler.new()
 	questions = question_file_handler.fill_array_from_file()
 	number_of_questions = questions.size()
@@ -61,9 +69,11 @@ func next_question() -> void:
 
 
 func next_text() -> void:
-	if question_index == number_of_questions:
-		stop_listening_for_input() # needed to avoid any errors
+	if question_index >= number_of_questions:
+		set_listening_for_input(false)
 		display_end_screen()
+		wait_and_return_to_main_menu(time_to_wait_until_returning_to_main_menu)
+		# needed otherwise rest of method will be executed
 		return
 		
 	question_label.text = questions[question_index]
@@ -92,5 +102,17 @@ func display_end_screen() -> void:
 	background_color.color = end_color
 	
 
-func stop_listening_for_input() -> void:
-	set_process_input(false)
+func set_listening_for_input(do_listen: bool) -> void:
+	set_process_input(do_listen)
+
+
+func wait_and_return_to_main_menu(seconds_to_wait: float) -> void:
+	# creates a single use timer and waits for it to timeout
+	await get_tree().create_timer(seconds_to_wait).timeout
+
+	set_listening_for_input(true)
+	_on_back_to_main_menu_button_down()	
+
+
+func _on_back_to_main_menu_button_down():
+	scene_changer.change_scene(scene_to_go_to, get_tree())
