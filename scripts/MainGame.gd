@@ -29,12 +29,17 @@ var question_label: Label
 var number_of_questions: int
 var question_index: int = 0
 
+### QUESTIONS
+var question_initializer: QuestionInitializer
+
+
 
 func _ready():
+	question_label = $QuestionBox/QuestionLabel
 	background_color = $BackgroundColor
 	number_of_colors = colors.size()
-	
-	question_label = $QuestionBox/QuestionLabel
+	question_initializer = QuestionInitializer.new()
+	questions = question_initializer.fill_array_from_file()
 	number_of_questions = questions.size()
 	
 	next_question()

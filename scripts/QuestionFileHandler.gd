@@ -1,5 +1,5 @@
 extends Node
-class_name QuestionFile
+class_name QuestionFileHandler
 
 const question_file_path: String = "user://questions.txt"
 	

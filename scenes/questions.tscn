@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://x0pcs40hryfy"]
+[gd_scene load_steps=2 format=3 uid="uid://bys2riukaaex7"]
 
-[ext_resource type="Script" path="res://scripts/Main.gd" id="1_x4fgr"]
+[ext_resource type="Script" path="res://scripts/MainGame.gd" id="1_1ixxg"]
 
 [node name="QuestionsMain" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_x4fgr")
+script = ExtResource("1_1ixxg")
 questions = ["a", "v", "gas"]
 colors = [Color(1, 0.396078, 0.329412, 1), Color(1, 0.647059, 0, 1), Color(1, 1, 0, 1), Color(0.4, 0.988235, 0.0784314, 1), Color(0.117647, 0.564706, 1, 1), Color(0.576471, 0.439216, 0.858824, 1), Color(1, 0.411765, 0.705882, 1)]
 

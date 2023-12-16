@@ -8,14 +8,14 @@ const menu_scene_path: String = "res://scenes/MainMenu.tscn"
 var scene_changer: SceneChanger
 
 ### FILE
-var question_file: QuestionFile
+var question_file_handler: QuestionFileHandler
 
 
 ### INIT
 func _ready():
 	textbox = $VBoxContainer/TextEdit
 	scene_changer = SceneChanger.new()
-	question_file = QuestionFile.new()
+	question_file_handler = QuestionFileHandler.new()
 
 
 ### BUTTON METHODS
@@ -38,7 +38,7 @@ func _on_submit_button_down():
 ### HELPERS
 
 func add_question_to_file(question: String) -> void:
-	question_file.append(question, true)
+	question_file_handler.append(question, true)
 
 
 func clear_text() -> void:

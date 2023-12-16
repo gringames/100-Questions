@@ -7,11 +7,12 @@ const add_questions_scene_path: String = "res://scenes/AddQuestions.tscn"
 ### OTHER
 var background: ColorRect
 var scene_changer: SceneChanger
+var question_initializer: QuestionInitializer
 
 
 ### INIT
 func _ready():
-	background = $BackgroundColor
+	background = $BackgroundColor	
 	scene_changer = SceneChanger.new()
 	
 	
