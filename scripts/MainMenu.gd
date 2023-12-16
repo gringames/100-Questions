@@ -35,3 +35,7 @@ func _on_add_button_down():
 
 func call_change_scene(path: String) -> void:
 	scene_changer.change_scene(path, get_tree())
+
+
+func _on_quit_button_down():
+	get_tree().quit()
