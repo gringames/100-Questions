@@ -30,27 +30,31 @@ var number_of_questions: int
 var question_index: int = 0
 
 ### QUESTIONS
-var question_initializer: QuestionInitializer
+var question_file_handler: QuestionFileHandler
 
 
 
+### SETUP
 func _ready():
 	question_label = $QuestionBox/QuestionLabel
 	background_color = $BackgroundColor
 	number_of_colors = colors.size()
-	question_initializer = QuestionInitializer.new()
-	questions = question_initializer.fill_array_from_file()
+	question_file_handler = QuestionFileHandler.new()
+	questions = question_file_handler.fill_array_from_file()
 	number_of_questions = questions.size()
 	
 	next_question()
 
 
+
+### INPUT
 func _input(event):
 	if event is InputEventScreenTouch and event.is_pressed():
 		next_question()
 
 
 
+### UPDATE
 func next_question() -> void:
 	next_text()
 	next_background_color()	
@@ -66,15 +70,6 @@ func next_text() -> void:
 	question_index += 1
 
 
-func display_end_screen() -> void:
-	question_label.text = end_text
-	background_color.color = end_color
-	
-
-func stop_listening_for_input() -> void:
-	set_process_input(false)
-
-
 func next_background_color() -> void:
 	background_color.color = colors[get_random_color_index()]
 
@@ -88,4 +83,14 @@ func get_random_color_index() -> int:
 		random_index = (random_index + 1) % number_of_colors
 	
 	return random_index
+
+
+
+### QUIT
+func display_end_screen() -> void:
+	question_label.text = end_text
+	background_color.color = end_color
 	
+
+func stop_listening_for_input() -> void:
+	set_process_input(false)
