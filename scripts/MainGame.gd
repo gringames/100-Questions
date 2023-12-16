@@ -48,10 +48,26 @@ func _ready():
 	number_of_colors = colors.size()
 	scene_changer = SceneChanger.new()
 	question_file_handler = QuestionFileHandler.new()
-	questions = question_file_handler.fill_array_from_file()
+	questions = shuffle(question_file_handler.fill_array_from_file())
 	number_of_questions = questions.size()
 	
 	next_question()
+
+
+### ARRAY SHUFFLE
+func shuffle(array: Array) -> Array:
+	var size: int = array.size()
+	# fisher-yates shuffle algorithm
+	for i in range(array.size()):
+		swap(array, i, randi() % size)
+	return array
+
+
+func swap(array: Array, index: int, with_index: int) -> Array:
+	var temp = array[index]
+	array[index] = array[with_index]
+	array[with_index] = temp
+	return array
 
 
 
